@@ -5,7 +5,10 @@
 
 name: Block merges for EOL
 
-on: pull_request
+on:
+  pull_request:
+  pull_request_review:
+    types: [submitted]
 
 permissions:
   contents: read
@@ -32,6 +35,19 @@ jobs:
           server_major=$(echo "${{ github.base_ref }}" | sed -En 's/stable//p')
           echo "server_major=$server_major" >> $GITHUB_ENV
 
+      - uses: actions/github-script@v3
+        with:
+          script: |
+            const isClosing = context.payload.action == 'closed'
+            const labels = JSON.stringify(context.payload.issue.labels)
+      - name: INFO
+        if: github.event.review.state == 'APPROVED'
+        run: console.log(github.event.review)
+
       - name: Checking if ${{ env.server_major }} is EOL
         run: |
           php -r 'echo json_encode(require_once "config.php");' | jq --arg version "${{ env.server_major }}" '.stable[$version]["100"].eol // .beta[$version]["100"].eol // "NotEOL"' | grep -q "NotEOL"
+
+      - name: Check for release crew approvals
+        if: github.event.review.state == 'APPROVED'
+        run: echo "This PR was approved"
