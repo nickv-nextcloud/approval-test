@@ -35,11 +35,12 @@ jobs:
           server_major=$(echo "${{ github.base_ref }}" | sed -En 's/stable//p')
           echo "server_major=$server_major" >> $GITHUB_ENV
 
-      - uses: actions/github-script@v3
+      - name: PAYLOAD
+        uses: actions/github-script@v3
         with:
           script: |
-            const isClosing = context.payload.action == 'closed'
-            const labels = JSON.stringify(context.payload.issue.labels)
+            console.log(JSON.stringify(context.payload))
+
       - name: INFO
         if: github.event.review.state == 'APPROVED'
         run: console.log(github.event.review)
