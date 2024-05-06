@@ -14,6 +14,12 @@ jobs:
       PULL_REQUEST_BASE_REF: ${{ github.event.pull_request.base.ref }}
       PULL_REQUEST_CLONE_URL: ${{ github.event.pull_request.head.repo.clone_url }}
 
+    steps:
+      - name: Init path
+        id: git-path
+        run: |
+          echo '$PULL_REQUEST_HEAD_REF'
+
   performance-testing:
     runs-on: ubuntu-latest
     needs: init
