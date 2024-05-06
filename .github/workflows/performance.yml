@@ -7,7 +7,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  performance-testing:
+  performancetesting:
     runs-on: ubuntu-latest
 
     strategy:
@@ -65,6 +65,6 @@ jobs:
 
       - name: Apply PR 4
         run: |
-          echo ${{ needs.init.outputs.PULL_REQUEST_HEAD_REF }}
-          echo ${{ needs.init.outputs.PULL_REQUEST_BASE_REF }}
-          echo ${{ needs.init.outputs.PULL_REQUEST_CLONE_URL }}
+          echo ${{ needs.performancetesting.outputs.PULL_REQUEST_HEAD_REF }}
+          echo ${{ needs.performancetesting.outputs.PULL_REQUEST_BASE_REF }}
+          echo ${{ needs.performancetesting.outputs.PULL_REQUEST_CLONE_URL }}
