@@ -77,3 +77,9 @@ jobs:
           echo ${{ needs.init.outputs.PULL_REQUEST_HEAD_REF }}
           echo ${{ needs.init.outputs.PULL_REQUEST_BASE_REF }}
           echo ${{ needs.init.outputs.PULL_REQUEST_CLONE_URL }}
+
+      - name: Apply PR 5
+        run: |
+          echo '${{ needs.init.outputs.PULL_REQUEST_HEAD_REF }}'
+          echo '${{ needs.init.outputs.PULL_REQUEST_BASE_REF }}'
+          echo '${{ needs.init.outputs.PULL_REQUEST_CLONE_URL }}'
