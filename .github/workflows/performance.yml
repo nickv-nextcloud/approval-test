@@ -30,18 +30,24 @@ jobs:
           PULL_REQUEST_BASE_REF: ${{ github.event.pull_request.base.ref }}
           PULL_REQUEST_CLONE_URL: ${{ github.event.pull_request.head.repo.clone_url }}
         run: |
-          echo $PULL_REQUEST_HEAD_REF
-          echo $PULL_REQUEST_BASE_REF
-          echo $PULL_REQUEST_CLONE_URL
+          echo pr/$PULL_REQUEST_HEAD_REF
+          echo pr/$PULL_REQUEST_BASE_REF
+          echo pr/$PULL_REQUEST_CLONE_URL
 
       - name: Apply PR old
         run: |
-          echo ${{ github.event.pull_request.head.ref }}
-          echo ${{ github.event.pull_request.base.ref }}
-          echo ${{ github.event.pull_request.head.repo.clone_url }}
+          echo pr/${{ github.event.pull_request.head.ref }}
+          echo pr/${{ github.event.pull_request.base.ref }}
+          echo pr/${{ github.event.pull_request.head.repo.clone_url }}
 
       - name: Apply PR 2
         run: |
-          echo '${{ github.event.pull_request.head.ref }}'
-          echo '${{ github.event.pull_request.base.ref }}'
-          echo '${{ github.event.pull_request.head.repo.clone_url }}'
+          echo 'pr/${{ github.event.pull_request.head.ref }}'
+          echo 'pr/${{ github.event.pull_request.base.ref }}'
+          echo 'pr/${{ github.event.pull_request.head.repo.clone_url }}'
+
+      - name: Apply PR 3
+        run: |
+          echo pr/'${{ github.event.pull_request.head.ref }}'
+          echo pr/'${{ github.event.pull_request.base.ref }}'
+          echo pr/'${{ github.event.pull_request.head.repo.clone_url }}'
