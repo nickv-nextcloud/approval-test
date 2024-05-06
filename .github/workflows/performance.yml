@@ -39,3 +39,9 @@ jobs:
           echo ${{ github.event.pull_request.head.ref }}
           echo ${{ github.event.pull_request.base.ref }}
           echo ${{ github.event.pull_request.head.repo.clone_url }}
+
+      - name: Apply PR 2
+        run: |
+          echo '${{ github.event.pull_request.head.ref }}'
+          echo '${{ github.event.pull_request.base.ref }}'
+          echo '${{ github.event.pull_request.head.repo.clone_url }}'
