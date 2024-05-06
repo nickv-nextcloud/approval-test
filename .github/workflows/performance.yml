@@ -17,6 +17,11 @@ jobs:
 
     name: performance-${{ matrix.php-versions }}
 
+    outputs:
+      PULL_REQUEST_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+      PULL_REQUEST_BASE_REF: ${{ github.event.pull_request.base.ref }}
+      PULL_REQUEST_CLONE_URL: ${{ github.event.pull_request.head.repo.clone_url }}
+
     steps:
       - name: Checkout server before PR
         uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
@@ -30,12 +35,6 @@ jobs:
           submodules: true
           ref: ${{ github.event.pull_request.head.ref }}
           
-      - name: Apply blueprint
-        uses: icewind1991/blueprint@v0.1.2
-        with:
-          blueprint: tests/blueprints/basic.toml
-          ref: ${{ github.event.pull_request.head.ref }}
-
       - name: Apply PR
         env:
           PULL_REQUEST_HEAD_REF: ${{ github.event.pull_request.head.ref }}
@@ -63,3 +62,9 @@ jobs:
           echo pr/'${{ github.event.pull_request.head.ref }}'
           echo pr/'${{ github.event.pull_request.base.ref }}'
           echo pr/'${{ github.event.pull_request.head.repo.clone_url }}'
+
+      - name: Apply PR 4
+        run: |
+          echo ${{ needs.init.outputs.PULL_REQUEST_HEAD_REF }}
+          echo ${{ needs.init.outputs.PULL_REQUEST_BASE_REF }}
+          echo ${{ needs.init.outputs.PULL_REQUEST_CLONE_URL }}
